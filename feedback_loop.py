@@ -13,6 +13,7 @@ from bmtk.simulator.bionet.io_tools import io
 from neuron import h
 import math
 
+popnum = 10
 
 pc = h.ParallelContext()
 
@@ -141,8 +142,8 @@ class FeedbackLoop(SimulatorMod):
                 fr = n_spikes / (self._block_length_ms/1000.0)
                 summed_fr += fr
                 io.log_info(f'{gid}\t\t{fr}')
-        avg_fr = summed_fr / 10.0
-        io.log_info(f'PGN firing rate avg: {summed_fr / 10.0} Hz')
+        avg_fr = summed_fr / popnum
+        io.log_info(f'PGN firing rate avg: {avg_fr} Hz') # was {summed_fr / 10.0}
         
         # Grill 
         PGN_fr = max(2.0E-03*avg_fr**3 - 3.3E-02*avg_fr**2 + 1.8*avg_fr - 0.5, 0.0)
@@ -160,8 +161,8 @@ class FeedbackLoop(SimulatorMod):
                 fr = n_spikes / (self._block_length_ms/1000.0)
                 summed_fr += fr
                 io.log_info(f'{gid}\t\t{fr}')
-        IMG_avg_fr = summed_fr / 10.0
-        io.log_info(f'IMG firing rate avg: {avg_fr} Hz')
+        IMG_avg_fr = summed_fr / popnum
+        io.log_info(f'IMG firing rate avg: {IMG_avg_fr} Hz') # was {avg_fr}... not right?
         
     ### STEP 3: Volume Calculations ###
         v_init = 0.0       # TODO: get biological value for initial bladder volume
@@ -224,17 +225,17 @@ class FeedbackLoop(SimulatorMod):
         #print("Calculated Bladder Afferent Firing Rate: {0}".format(self.blad_fr))
         psg = PoissonSpikeGenerator()
         psg.add(
-            node_ids= [0,1,2,3,4,5,6,7,8,9],
+            node_ids= list(range(0,popnum+1))# [0,1,2,3,4,5,6,7,8,9],
             firing_rate= self.blad_fr,
             times=(next_block_tstart/1000.0 + 0.01, next_block_tstop/1000.0),
             population= 'Bladaff',
         )
         
-        psg.add_spikes([0,1,2,3,4,5,6,7,8,9], [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop], population = "Bladaff")
+        psg.add_spikes(list(range(0,popnum+1)), [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop], population = "Bladaff")
         psg.to_csv("spikes.csv")
 
         for gid, cell in sim.net.get_local_cells().items():
-            if gid < 10:
+            if gid < popnum:
                 spikes = psg.get_times(gid, population='Bladaff')
                 spikes = np.sort(spikes)
                 #print("HEllo: \n {0}".format(spikes))
@@ -263,19 +264,19 @@ class FeedbackLoop(SimulatorMod):
             # PAG Firing Rate Update 
             psg = PoissonSpikeGenerator()
             psg.add(
-                node_ids= [0,1,2,3,4,5,6,7,8,9],
+                node_ids= list(range(0,popnum+1))# was [0,1,2,3,4,5,6,7,8,9], ... isn't this blad aff ids??
                 firing_rate= self.pag_fr,
                 times=(next_block_tstart/1000.0 + 0.01, next_block_tstop/1000.0),
                 population= 'PAGaff',
             )
         
-            psg.add_spikes([0,1,2,3,4,5,6,7,8,9], [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop,       next_block_tstop, next_block_tstop, next_block_tstop], population = "PAGaff")
+            psg.add_spikes(list(range(0,popnum+1)), [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop,       next_block_tstop, next_block_tstop, next_block_tstop], population = "PAGaff")
             psg.to_csv("spikes_pag.csv")
             #self._current_input_rate += 10.0
 
             for gid, cell in sim.net.get_local_cells().items():
-                if gid < 20 and gid > 9:
-                    spikes = psg.get_times(gid - 10, population='PAGaff')
+                if gid < 2*popnum and gid > popnum-1:
+                    spikes = psg.get_times(gid - popnum, population='PAGaff')
                     spikes = np.sort(spikes)
                     #print("HEllo: \n {0}".format(spikes))
                     if len(spikes) == 0:
