@@ -7,7 +7,7 @@ import pandas as pd
 from plotting import plot_figure, plotting_calculator
 from bmtk.analyzer.compartment import plot_traces
 
-popnum = 10
+popnum = 20
 
 num = {
 'Bladaff' : popnum,
