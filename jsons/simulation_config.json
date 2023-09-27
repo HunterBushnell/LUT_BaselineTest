@@ -1,6 +1,3 @@
-popnum = 10
-popnumid = popnum/10
-
 {
   "manifest": {
     "$BASE_DIR": ".",
@@ -50,7 +47,7 @@ popnumid = popnum/10
   "reports": {
   "membrane_report": {
 	  "module": "membrane_report",
-	  "cells": [5*popnumid, 15*popnumid, 25*popnumid, 35*popnumid, 45*popnumid, 55*popnumid, 65*popnumid, 75*popnumid, 85*popnumid, 105*popnumid], 
+	  "cells": [5, 15, 25, 35, 45, 55, 65, 75, 85, 105], 
 	  "variable_name": ["v"],
 	  "file_name": "cell_vars.h5",
 	  "sections": "soma"
