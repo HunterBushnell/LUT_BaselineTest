@@ -64,7 +64,7 @@ class FeedbackLoop(SimulatorMod):
             # events mimicking a synapse. For this simple example each cell recieves only 1 virtual synapse/netcon.
             # To have more than 1 netcon in each cell you can add an extra internal loop, and _synapses and _netcons
             # will be a dictionary of lists
-            if isinstance(cell, BioCell) and gid <2*popnum# < 20: ################################################################## CHANGE TO , 20 FOR PAG
+            if isinstance(cell, BioCell) and gid <2*popnum: # < 20: ################################################################## CHANGE TO , 20 FOR PAG
                 # For biophysicaly detailed cells we use an Synapse object that is placed at the soma. If you want to
                 # place it at somewhere different than the soma you can use the following code:
                 #   seg_x, sec_obj = cell.morphology.find_sections(
