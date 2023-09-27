@@ -7,20 +7,22 @@ import pandas as pd
 from plotting import plot_figure, plotting_calculator
 from bmtk.analyzer.compartment import plot_traces
 
+popnum = 10
+
 num = {
-'Bladaff' : 10,
-'PAGaff'  : 10,
-'EUSaff'  : 10,
-'IND'     : 10,
-'Hypo'    : 10,
-'INmplus' : 10,
-'INmminus': 10,
-'PGN'     : 10,
-'FB'      : 10,
-'IMG'     : 10,
-'MPG'     : 10,
-'EUSmn'   : 10,
-'Bladmn'  : 10
+'Bladaff' : popnum,
+'PAGaff'  : popnum,
+'EUSaff'  : popnum,
+'IND'     : popnum,
+'Hypo'    : popnum,
+'INmplus' : popnum,
+'INmminus': popnum,
+'PGN'     : popnum,
+'FB'      : popnum,
+'IMG'     : popnum,
+'MPG'     : popnum,
+'EUSmn'   : popnum,
+'Bladmn'  : popnum
 }
 gids = {}
 ind = 0
