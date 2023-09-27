@@ -225,7 +225,7 @@ class FeedbackLoop(SimulatorMod):
         #print("Calculated Bladder Afferent Firing Rate: {0}".format(self.blad_fr))
         psg = PoissonSpikeGenerator()
         psg.add(
-            node_ids= list(range(0,popnum+1))# [0,1,2,3,4,5,6,7,8,9],
+            node_ids= list(range(0,popnum+1)), # [0,1,2,3,4,5,6,7,8,9],
             firing_rate= self.blad_fr,
             times=(next_block_tstart/1000.0 + 0.01, next_block_tstop/1000.0),
             population= 'Bladaff',
@@ -264,7 +264,7 @@ class FeedbackLoop(SimulatorMod):
             # PAG Firing Rate Update 
             psg = PoissonSpikeGenerator()
             psg.add(
-                node_ids= list(range(0,popnum+1))# was [0,1,2,3,4,5,6,7,8,9], ... isn't this blad aff ids??
+                node_ids= list(range(0,popnum+1)), # was [0,1,2,3,4,5,6,7,8,9], ... isn't this blad aff ids??
                 firing_rate= self.pag_fr,
                 times=(next_block_tstart/1000.0 + 0.01, next_block_tstop/1000.0),
                 population= 'PAGaff',
