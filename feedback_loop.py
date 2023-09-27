@@ -13,7 +13,7 @@ from bmtk.simulator.bionet.io_tools import io
 from neuron import h
 import math
 
-popnum = 10
+popnum = 20
 
 pc = h.ParallelContext()
 
@@ -225,13 +225,13 @@ class FeedbackLoop(SimulatorMod):
         #print("Calculated Bladder Afferent Firing Rate: {0}".format(self.blad_fr))
         psg = PoissonSpikeGenerator()
         psg.add(
-            node_ids= list(range(0,popnum+1)), # [0,1,2,3,4,5,6,7,8,9],
+            node_ids= list(range(0,popnum)), # [0,1,2,3,4,5,6,7,8,9],
             firing_rate= self.blad_fr,
             times=(next_block_tstart/1000.0 + 0.01, next_block_tstop/1000.0),
             population= 'Bladaff',
         )
         
-        psg.add_spikes(list(range(0,popnum+1)), [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop], population = "Bladaff")
+        psg.add_spikes(list(range(0,popnum)), [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop], population = "Bladaff")
         psg.to_csv("spikes.csv")
 
         for gid, cell in sim.net.get_local_cells().items():
@@ -264,13 +264,13 @@ class FeedbackLoop(SimulatorMod):
             # PAG Firing Rate Update 
             psg = PoissonSpikeGenerator()
             psg.add(
-                node_ids= list(range(0,popnum+1)), # was [0,1,2,3,4,5,6,7,8,9], ... isn't this blad aff ids??
+                node_ids= list(range(0,popnum)), # was [0,1,2,3,4,5,6,7,8,9], ... isn't this blad aff ids??
                 firing_rate= self.pag_fr,
                 times=(next_block_tstart/1000.0 + 0.01, next_block_tstop/1000.0),
                 population= 'PAGaff',
             )
         
-            psg.add_spikes(list(range(0,popnum+1)), [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop,       next_block_tstop, next_block_tstop, next_block_tstop], population = "PAGaff")
+            psg.add_spikes(list(range(0,popnum)), [next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop,       next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop, next_block_tstop], population = "PAGaff")
             psg.to_csv("spikes_pag.csv")
             #self._current_input_rate += 10.0
 
