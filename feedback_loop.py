@@ -64,7 +64,7 @@ class FeedbackLoop(SimulatorMod):
             # events mimicking a synapse. For this simple example each cell recieves only 1 virtual synapse/netcon.
             # To have more than 1 netcon in each cell you can add an extra internal loop, and _synapses and _netcons
             # will be a dictionary of lists
-            if isinstance(cell, BioCell) and gid < 20: ################################################################## CHANGE TO , 20 FOR PAG
+            if isinstance(cell, BioCell) and gid <2*popnum# < 20: ################################################################## CHANGE TO , 20 FOR PAG
                 # For biophysicaly detailed cells we use an Synapse object that is placed at the soma. If you want to
                 # place it at somewhere different than the soma you can use the following code:
                 #   seg_x, sec_obj = cell.morphology.find_sections(
@@ -137,7 +137,7 @@ class FeedbackLoop(SimulatorMod):
             # self._spike_records is a dictionary of the recorded spikes for each cell in the previous block of
             #  time. When self._set_spike_detector() is called it will reset/empty the spike times. If you want to
             #  print/save the actual spike-times you can call self._all_spikes[gid] += list(tvec)
-            if gid < 80 and gid > 69: #PGN gids 
+            if gid < 8*popnum and gid > 7*popnum-1: #PGN gids 
                 n_spikes = len(tvec)
                 fr = n_spikes / (self._block_length_ms/1000.0)
                 summed_fr += fr
@@ -156,7 +156,7 @@ class FeedbackLoop(SimulatorMod):
             # self._spike_records is a dictionary of the recorded spikes for each cell in the previous block of
             #  time. When self._set_spike_detector() is called it will reset/empty the spike times. If you want to
             #  print/save the actual spike-times you can call self._all_spikes[gid] += list(tvec)
-            if gid < 100 and gid > 89: #IMG gids 
+            if gid < 10*popnum and gid > 9*popnum-1: #IMG gids 
                 n_spikes = len(tvec)
                 fr = n_spikes / (self._block_length_ms/1000.0)
                 summed_fr += fr
