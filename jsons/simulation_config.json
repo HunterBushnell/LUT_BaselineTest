@@ -47,7 +47,7 @@
   "reports": {
   "membrane_report": {
 	  "module": "membrane_report",
-	  "cells": [10, 30, 50, 70, 90, 110, 130, 150, 170, 210], 
+	  "cells": "all", 
 	  "variable_name": ["v"],
 	  "file_name": "cell_vars.h5",
 	  "sections": "soma"
